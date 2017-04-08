@@ -1,0 +1,9 @@
+Abstractions:
+  It's a technique for arranging complexity of computer system. It will establishing a level of complexity. Higher level will suppress the complexity of lower level. Thus programmers can handle a idealized interface and won't consider details that are too complex.
+
+Overhead:
+  It's the resources required to set up an operation. It might seem unrelated, but necessary.
+
+It's like when you need to go somewhere, you might need a car. But, it would be a lot of overhead to get a car to drive down the street, so you might want to walk. However, the overhead would be worth it if you were going across the country.
+
+In computer science, sometimes we use cars to go down the street because we don't have a better way, or it's not worth our time to "learn how to walk".

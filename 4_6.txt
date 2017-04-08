@@ -1,0 +1,41 @@
+Libraries:
+  -- Convenient to use good implementation that other people did.
+
+Modularity:
+  separated from a system, virtually or even physically. Consider encapsulation, that is how complexity we don't have to worry about inside the block.
+  -- Cohesive, means module how stick together. 
+
+Service delivery via system call:
+  -- More expensive than subroutine calls
+  -- Can do more things
+  -- Evolution is very slow and expensive
+
+Only operating system can manage the address
+
+Middle-ware:
+  Software that is a key part of application, fundamental platform, but not a part of OS.
+  -- Database, pub/sub messaging system
+  -- Apache, Nginx
+  -- Hadoop
+
+scheduling delay is not a problem?
+
+Kernel:
+  Kernel mode have previlige in any structure.
+
+OS goal:
+  What platform, what application, how fast.
+
+Interface suport by OS is the contract that allow application running
+
+API Application Programming Interface:
+  
+ABI Application Binary Interface:
+  Computer interpreted bit code, so ABI describe API in binary code. It's related to the bit computation. 
+
+If the computer architecture changes, API won't be affected, but ABI will.
+
+Federation Framework:
+  Several individules work as a whole.
+
+

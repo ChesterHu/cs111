@@ -1,0 +1,8 @@
+Computer program:
+  Simple case: processor fetches one instruction at a time and excute it, then do next instructions, until the program complete. (modern processor can do complex things).
+
+OS:
+  A body of software, is responsible for making it easier to run programs, allowing programs to share memory, enabling programs to interact with devices.
+
+What is instruction?
+What is file system?
