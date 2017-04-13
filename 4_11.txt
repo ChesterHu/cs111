@@ -1,0 +1,27 @@
+Program vs Process Address Space:
+---------------------------------
+  shared code   private data   shared_lib_1    shared_lib_2
+
+  shared_lib_3
+  
+                                              private stack
+Characteristics of Libraries
+----------------------------
+Chose which part of the code to be used in our program? How to allocate that code?  
+  1. Static
+  2. Shared
+  3. Dynamic
+
+Shared Libraries
+----------------
+  1. Reduce memory consumption: using libraries that are already been used. 
+  2. Not all modules will work in a shared library, because libraries don't know the existance of our program
+
+DLL Dynamic Load Library
+------------------------
+  Can be load inplace when program is compiled (run-time loader), save more memories, but get cost in the compilation process.
+ 
+Fork use the same address space, exec store the address space and make a copy of it.
+
+
+
