@@ -1,0 +1,107 @@
+Multiprogramming:
+	OS can load a number of job into the memory and switch rapidly between them. This can improve CPU utilization, because the I/O devices were slow.
+
+Process:
+	The most fundamental abstractions the OS provides to users. It's a RUNNING program. 
+	
+Virtualization:
+  Suppose we want to more than one program at once but we only have one CPU, then OS creates illusion by virtualizing the CPU. OS let CPU running one process, then stop it and running another, and so forth. The OS promote the illusion that many virtual CPUs exist.
+
+Time Sharing/ Space Sharing:
+	Time sharing means OS allow one resource be used for a little while by one entity, and then a little while by another entity. Space sharing means OS split one resource and allow many entities use splitted parts at same time, for example: disk.
+	The potential cost is performance, as each will run more slowly if the CPUs must be shared.
+
+Abstraction:
+	The abstraction is something we called process, which is provided by OS. To understand the components of a process, we have to understand its machine state:
+	--MEMORY
+		The instructions and data used by the program lie in the memory.
+	--REGISTERS
+		Many instructions explicitly read or update registers.
+	--I/O INFORMATION	
+		A list of files the process currently has open.
+
+Process API:
+	OS must have interface, these APIs usually have features:
+	--CREATE:
+		OS will create a new process when a program is prompted by user.
+	--WAIT:
+		OS can let a process to stop running and wait.
+	--MISCELLANEOUS CONTROL:
+		OS can suspend a process and resume it.
+	--STATUS:
+		There're usually interface to get status information of a process.
+
+Process Creation:
+	1. OS load the program code and its static data (from disk or SSD) into memory, into the address space of the process. Before that programs reside on disk/SSD in some kind of executable format.
+	2. OS may also create some initial memory fore the program's heap. In C, the heap is used for explicitly requested dynamically-allocated data (?). Programs request such space by calling malloc() and free it by calling free(). The heap is needed for data structures such as linked list, hash tables, trees and other interesting data structure. The heap size will increase as the program request more memory.
+	3. OS do some initialization for input/output (I/O), For example, in Unix systems, each process by default has three open file descriptors for standard input, output and error. These descriptors let programs easily read input and print output.
+	4. The OS now can set stage for program execution. It start program running at the entry point -- main(). By jumping into the main() routine, the OS transfers control of the CPU to the created process and thus the program begins its execution.
+
+Process States:
+	--RUNNING: In the running state, a process is running on a processor. It is executing instructions.
+	--READY: In the ready state, a process is ready to run but for some reason, the OS has chosen not to run it at this moment.
+	--BLOCKED: In the blocked state, the process performed some kind of operation that makes it not to ready to run until other event takes places. For example, a processer initiates an I/O request to a disk.
+
+STATE MAP:
+					descheduled
+	   RUNNING -----------> READY
+       \     <-----------   ^
+			  \       scheduled  /
+		     \                /
+I/O       \              / I/O done
+INITIATE   \            / 
+				    v          /
+				       BLOCKED
+
+Data Structures:
+	OS is program, so it also has some key data structure to help it keep track various relevent pieces of information.
+
+Below is an example of OS data structure
+=====================================================================================	
+// the registers xv6 will save and restore
+// to stop and subsequently restart a process
+struct context {
+	int eip;
+	int esp;
+	int ebx;
+	int ecx;
+	int edx;
+	int esi;
+	int edi;
+	int ebp;
+};
+
+// the different states a process can be in
+enum proc_state { UNUSED, EMBRYO, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };
+
+// the information xv6 tracks about each process
+// including its register context and state
+struct proc {
+	char *mem;
+	// Start of process memory
+	uint sz;
+	// Size of process memory
+	char *kstack;
+	// Bottom of kernel stack
+	// for this process
+	enum proc_state state;
+	// Process state
+	int pid;
+	// Process ID
+	struct proc *parent;
+	// Parent process
+	void *chan;
+	// If non-zero, sleeping on chan
+	int killed;
+	// If non-zero, have been killed
+	struct file *ofile[NOFILE]; // Open files
+	struct inode *cwd;
+	// Current directory
+	struct context context;
+	// Switch here to run process
+	struct trapframe *tf;
+	// Trap frame for the
+	// current interrupt
+};
+======================================================================================
+
